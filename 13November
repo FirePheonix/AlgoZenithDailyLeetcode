@@ -1,2 +1,90 @@
-3Sum Problem
-set-mismatch
+3Sum Problem:
+
+class Solution {
+public:
+    
+
+vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> ans;
+    int n = nums.size();
+    
+    // Sort the input array
+    sort(nums.begin(), nums.end());
+    
+    // Loop through each element
+    for (int i = 0; i < n; i++) {
+        // Skip duplicate elements
+        if (i > 0 && nums[i] == nums[i - 1]) {
+            continue;
+        }
+        
+        // Two pointers initialization
+        int j = i + 1;
+        int k = n - 1;
+        
+        // Two-pointer approach to find valid triplets
+        while (j < k) {
+            int sum = nums[i] + nums[j] + nums[k];
+            
+            if (sum < 0) {
+                j++;  // Move the left pointer to increase the sum
+            } 
+            else if (sum > 0) {
+                k--;  // Move the right pointer to decrease the sum
+            } 
+            else {
+                // Found a triplet
+                ans.push_back({nums[i], nums[j], nums[k]});
+                
+                
+                j++;
+                k--;
+                
+                
+                while (j < k && nums[j] == nums[j - 1]) {
+                    j++;
+                }
+                
+                
+                while (j < k && nums[k] == nums[k + 1]) {
+                    k--;
+                }
+            }
+        }
+    }
+    
+    return ans;
+}
+
+};
+
+
+
+
+
+set-mismatch:
+
+
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        vector<int> ans;
+        int n = nums.size();
+        vector<bool> isPresent(n + 1, false);
+
+        for (int i = 0; i < n; i++) {
+            if (isPresent[nums[i]]) {
+                ans.push_back(nums[i]);
+            }
+            isPresent[nums[i]] = true;
+        }
+
+        for (int i = 1; i < isPresent.size(); i++) {
+            if (!isPresent[i]) {
+                ans.push_back(i);
+                break;
+            }
+        }
+        return ans;
+    }
+};
