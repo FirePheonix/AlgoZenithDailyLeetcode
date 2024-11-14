@@ -1,0 +1,73 @@
+Q1 remove duplicates from sorted array.
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty()) 
+        return 0; 
+        //IMPORTANT CASE, if the array of nums is EMPTY, return 0;
+        
+        int count = 1;
+        //count = 1 and NOT 0 because first element is obviously a unique one
+        
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] != nums[i - 1]) { //that is, if unique element found.
+                nums[count] = nums[i]; //INSTEAD OF MAKING A NEW ARRAY, WE USED THE SAME ARRAY, AS IT'S ONLY REORGANIZED. SAVING MEMORY.
+                count++;
+            }
+        }
+        
+        return count; 
+    }
+};
+
+
+Q2 isValidPalindrome
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        // Negative numbers cannot be palindromes
+        if (x < 0) return false;
+        
+        long long int k = 0; // Initialize k to 0, it is the variable where the reverse number will be made
+        int l = x; //we make a copy to manipulate, since we also will have to check in the end
+        
+        while (l != 0) {
+            k = k*10 + l%10; //for reverse number
+            l = l/10; //
+        }
+
+        return x == k;
+        //equivalent to:
+        //if(x == k)
+        //return true; //meaning, it indeed is a valid palindrome
+    }
+};
+
+
+
+Q3 BUY AND SELL STOCK
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if (prices.empty()) return 0; // Handle empty array case
+
+        int minPrice = INT_MAX; 
+        int maxProfit = 0; 
+
+        for (int i = 0; i < prices.size(); i++) {
+            
+            minPrice = min(minPrice, prices[i]);
+            //this function ALSO will ensure the fact that the sell is on A LATER ON DATE than buy.  
+            //Because; min price is SET earlier, then not changed untill a new, lesser buy price comes. 
+            
+
+            int currentProfit = prices[i] - minPrice;
+            maxProfit = max(maxProfit, currentProfit);
+        }
+
+        return maxProfit;
+    }
+};
