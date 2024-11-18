@@ -1,0 +1,29 @@
+Q1 ALL POSSIBLE SUBSETS
+
+
+//I USED a very important logic of USING BITWISE
+//we can acutally make trios like [1,2,3] with including them or now, and make bitwise, like: 101,111,010, and reject the element at 0, and take
+//at 1. hence considering all the possible cases.
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n = nums.size(); // Number of elements in the array
+        int subsetCount = 1 << n; // Total number of subsets (2^n)
+        vector<vector<int>> powerSet; // To store all subsets
+
+        // Iterate through all subset combinations
+        for (int mask = 0; mask < subsetCount; mask++) {
+            vector<int> subset;
+
+            // Check each bit position
+            for (int i = 0; i < n; i++) {
+                if (mask & (1 << i)) { // If the i-th bit is set, include nums[i]
+                    subset.push_back(nums[i]);
+                }
+            }
+            powerSet.push_back(subset); // Add the subset to the power set
+        }
+
+        return powerSet;
+    }
+};
